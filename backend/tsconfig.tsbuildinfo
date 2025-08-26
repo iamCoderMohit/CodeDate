@@ -1,0 +1,1 @@
+{"root":["./src/app.ts","./src/server.ts","./src/config/prisma.ts","./src/middleware/auth.ts","./src/routes/intrest.route.ts","./src/routes/message.route.ts","./src/routes/user.route.ts","./src/utils/sendmessage.ts"],"version":"5.9.2"}

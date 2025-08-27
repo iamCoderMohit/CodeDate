@@ -6,7 +6,7 @@ import cors from 'cors'
 
 const app = express()
 app.use(express.json())
-app.use(cors())
+app.use(cors({origin: ["http://localhost:5173", "https://code-date-six.vercel.app"]}))
 
 app.use('/api/v1/user', userRouter)
 app.use('/api/v1/message', messageRouter)

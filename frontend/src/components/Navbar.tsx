@@ -23,11 +23,9 @@ function Navbar({
   showOverlay,
   setShowOverlay = () => {},
 }: navbarInputs) {
-
-
-  const isLoggedIn = useSelector((state: any) => state.auth.isLoggedIn)
-  const navigate = useNavigate()
-  const [mobile, setMobile] = useState(false)
+  const isLoggedIn = useSelector((state: any) => state.auth.isLoggedIn);
+  const navigate = useNavigate();
+  const [mobile, setMobile] = useState(false);
   return (
     <div className="p-4 flex justify-between px-10 items-center">
       {showOverlay ? (
@@ -38,60 +36,67 @@ function Navbar({
           setShowMobile={setMobile}
         />
       ) : null}
-      <Link to={'/'} className="flex items-center gap-5">
+      <Link to={"/"} className="flex items-center gap-5">
         <img src={logo} className="w-50 cursor-pointer mx-auto" alt="" />
       </Link>
       <Link to={"/feed"} className="hidden md:block">
         <DateButton text="Find your Date" />
       </Link>
       <div className="flex items-center gap-4">
-        {isLoggedIn ? <div className="flex items-center gap-4">
-          <Link className="hidden md:block" to={'/profile'}><SetInfoButton /></Link>
+        {isLoggedIn ? (
+          <div className="flex items-center gap-4">
+            <Link className="hidden md:block" to={"/profile"}>
+              <SetInfoButton />
+            </Link>
+            <button
+              className="text-white hidden bg-gray-900 px-10 rounded-md py-2 md:flex items-center justify-center gap-4 cursor-pointer"
+              onClick={() => (localStorage.clear(), navigate("/"))}
+            >
+              <p>Logout</p>
+              <IoIosLogOut />
+            </button>
+            <div
+              className="md:hidden text-white cursor-pointer"
+              onClick={() => (setMobile((prev) => !prev), setShowOverlay(true))}
+            >
+              <GiHamburgerMenu />
+            </div>
+            {mobile ? (
+              <div className="absolute top-5 left-1/2 -translate-x-1/2 rounded-xl backdrop-blur-lg p-5 flex flex-col gap-4 items-center z-50">
+                <div
+                  className="absolute top-5 right-5 cursor-pointer text-white"
+                  onClick={() => (setMobile(false), setShowOverlay(false))}
+                >
+                  <ImCross />
+                </div>
+                <Link className="" to={"/profile"}>
+                  <SetInfoButton />
+                </Link>
+                <button
+                  className="text-white bg-gray-900 px-10 rounded-md py-2 items-center justify-center gap-4 cursor-pointer"
+                  onClick={() => (localStorage.clear(), navigate("/"))}
+                >
+                  <p>Logout</p>
+                  <IoIosLogOut />
+                </button>
+                <Link to={"/feed"} className="">
+                  <DateButton text="Find your Date" />
+                </Link>
+              </div>
+            ) : null}
+          </div>
+        ) : (
           <button
-          className="text-white hidden bg-gray-900 px-10 rounded-md py-2 md:flex items-center justify-center gap-4 cursor-pointer"
-          onClick={() => (
-            localStorage.clear(),
-            navigate('/')
-          )}
-        >
-          <p>Logout</p>
-          <IoIosLogOut />
-        </button>
-        <div className="md:hidden text-white cursor-pointer"
-        onClick={() => (setMobile(prev => !prev),
-        setShowOverlay(true)
+            className="text-white bg-gray-900 md:px-10 rounded-md py-2 px-2 ml-5 flex items-center justify-center gap-4 cursor-pointer"
+            onClick={() => (
+              setShowSignUp((prev) => !prev), setShowOverlay((prev) => !prev)
+            )}
+          >
+            <FaRocket />
+            <p>Join the Community</p>
+          </button>
         )}
-        ><GiHamburgerMenu /></div>
-        {mobile ? <div className="absolute top-5 left-1/2 -translate-x-1/2 rounded-xl backdrop-blur-lg p-5 flex flex-col gap-4 items-center z-50">
-        <div className="absolute top-5 right-5 cursor-pointer text-white"
-        onClick={() => setMobile(false)}
-        ><ImCross /></div>
-           <Link className="" to={'/profile'}><SetInfoButton /></Link>
-           <button
-          className="text-white bg-gray-900 px-10 rounded-md py-2 items-center justify-center gap-4 cursor-pointer"
-          onClick={() => (
-            localStorage.clear(),
-            navigate('/')
-          )}
-        >
-          <p>Logout</p>
-          <IoIosLogOut />
-        </button>
-        <Link to={"/feed"} className="">
-        <DateButton text="Find your Date" />
-      </Link>
-        </div> : null }
-        </div> : 
-        <button
-          className="text-white bg-gray-900 md:px-10 rounded-md py-2 px-2 ml-5 flex items-center justify-center gap-4 cursor-pointer"
-          onClick={() => (
-            setShowSignUp((prev) => !prev), setShowOverlay((prev) => !prev)
-          )}
-        >
-          <FaRocket />
-          <p>Join the Community</p>
-        </button>}
-      </div> 
+      </div>
     </div>
   );
 }

@@ -41,7 +41,7 @@ function Chat() {
   return (
     <div className="flex flex-col">
       <Navbar />
-      <div className="md:w-130 w-[90vw] h-[85vh] bg-gray-900 rounded-md self-center p-5 relative">
+      <div className="md:w-130 w-[90vw] md:h-[85vh] h-[75vh] bg-gray-900 rounded-md self-center p-5 relative">
         <div>
           {loading ? (
             <FeedLoader />

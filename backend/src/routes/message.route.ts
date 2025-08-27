@@ -31,7 +31,13 @@ messageRouter.post("/send", async (req, res) => {
 
 messageRouter.get("/all", async (req, res) => {
   try {
-    const { receiverId } = req.body;
+    const receiverId = req.query.receiverId?.toString()
+
+    if(!receiverId){
+      return res.status(404).json({
+        "error": "please provide a valid receiver id"
+      })
+    }
     const senderId = (req as customRequest).user.id;
 
     const convo = await prisma.conversation.findFirst({
@@ -68,3 +74,6 @@ messageRouter.get("/all", async (req, res) => {
 });
 
 export default messageRouter;
+
+
+//was adding messagin feature, i have to pass the reciever id in the query params

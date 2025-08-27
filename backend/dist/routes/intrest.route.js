@@ -10,7 +10,8 @@ intrestRouter.post("/", async (req, res) => {
         await prisma.interest.createMany({
             data: intrest.map((i) => ({
                 userId: user.id,
-                interest: i,
+                interest: i.name,
+                logo: i.logo
             })),
         });
         res.json({

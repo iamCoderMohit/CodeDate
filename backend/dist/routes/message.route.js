@@ -24,7 +24,12 @@ messageRouter.post("/send", async (req, res) => {
 });
 messageRouter.get("/all", async (req, res) => {
     try {
-        const { receiverId } = req.body;
+        const receiverId = req.query.receiverId?.toString();
+        if (!receiverId) {
+            return res.status(404).json({
+                "error": "please provide a valid receiver id"
+            });
+        }
         const senderId = req.user.id;
         const convo = await prisma.conversation.findFirst({
             where: {

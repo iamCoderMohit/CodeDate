@@ -12,6 +12,8 @@ model User{
   username String @unique
   email String @unique
   password String 
+  name String?
+  bio String?
 
   interests Interest[]
   conversations1 Conversation[] @relation("User1Convo")
@@ -24,6 +26,7 @@ model Interest{
   user User @relation(fields: [userId], references: [id])
   userId String
   interest String
+  logo String?
 }
 
 model Conversation{

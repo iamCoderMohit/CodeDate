@@ -1,6 +1,7 @@
 import express from "express";
 import { prisma } from "../config/prisma.js";
 import jwt from "jsonwebtoken";
+import validateUser, { type customRequest } from "../middleware/auth.js";
 
 const userRouter = express.Router();
 const JWT_KEY = process.env.JWT_SECRET_KEY;
@@ -78,5 +79,78 @@ userRouter.post("/signin", async (req, res) => {
     });
   }
 });
+
+userRouter.get('/all', validateUser, async (req, res) => {
+  try {
+    const users = await prisma.user.findMany({
+      select: {id: true, email: true, username: true, interests: true, name: true, bio: true},
+    })
+
+    res.json({users})
+  } catch (error) {
+    res.status(500).json({error})
+  }
+})
+
+userRouter.get('/me', validateUser, async (req, res) => {
+  try {
+    const userInfo = (req as customRequest).user
+    const user = await prisma.user.findUnique({
+      where:{
+        id: userInfo.id
+      },
+      select: {email: true, username: true}
+    })
+
+    res.json({
+      user
+    })
+  } catch (error) {
+    res.status(500).json({error})
+  }
+})
+
+userRouter.put('/edit', validateUser, async (req, res) => {
+  try {
+    const {name, bio} = req.body
+    const userId = (req as customRequest).user.id
+
+    const user = await prisma.user.update({
+      where: {
+        id: userId
+      }, 
+      data: {
+        name: name,
+        bio: bio
+      }
+    })
+
+    res.json({user})
+  } catch (error) {
+    res.status(500).json({error})
+  }
+})
+
+userRouter.get('/info', validateUser, async (req, res) => {
+  try {
+    const username = req.query.username
+
+    if(!username){
+      res.status(404).json({
+        "error": "please provide a valid username"
+      })
+    }
+    
+    const user = await prisma.user.findUnique({
+      //@ts-ignore
+      where: {username},
+      select: {username: true, name: true, bio: true, interests: true}
+    })
+
+    res.json({user})
+  } catch (error) {
+    res.status(500).json({error})
+  }
+})
 
 export default userRouter;

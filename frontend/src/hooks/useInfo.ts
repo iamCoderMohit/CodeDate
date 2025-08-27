@@ -8,7 +8,8 @@ export function useInfo() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [userInfo, setUserInfo] = useState<{username: string, name: string, bio: string, interests: any[]}>({
+  const [userInfo, setUserInfo] = useState<{id: string, username: string, name: string, bio: string, interests: any[]}>({
+    id: '',
     username: '',
     name: '',
     bio: '',

@@ -5,6 +5,7 @@ import { persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import authReducer from '../features/authSlice'
 import interestReducer from '../features/interestSlice'
+import msgReducer from '../features/msgSlice'
 
 const persistConfig = {
     key: 'root',
@@ -13,7 +14,8 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
     auth: authReducer,
-    interest: interestReducer
+    interest: interestReducer,
+    msg: msgReducer
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

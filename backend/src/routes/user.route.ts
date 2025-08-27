@@ -82,7 +82,9 @@ userRouter.post("/signin", async (req, res) => {
 
 userRouter.get('/all', validateUser, async (req, res) => {
   try {
+    const userId = (req as customRequest).user.id
     const users = await prisma.user.findMany({
+      where: {id: {not: userId}},
       select: {id: true, email: true, username: true, interests: true, name: true, bio: true},
     })
 
@@ -99,7 +101,7 @@ userRouter.get('/me', validateUser, async (req, res) => {
       where:{
         id: userInfo.id
       },
-      select: {email: true, username: true}
+      select: {id: true, email: true, username: true}
     })
 
     res.json({
@@ -144,7 +146,7 @@ userRouter.get('/info', validateUser, async (req, res) => {
     const user = await prisma.user.findUnique({
       //@ts-ignore
       where: {username},
-      select: {username: true, name: true, bio: true, interests: true}
+      select: {id: true, username: true, name: true, bio: true, interests: true}
     })
 
     res.json({user})

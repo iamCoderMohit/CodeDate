@@ -63,4 +63,5 @@ messageRouter.get("/all", async (req, res) => {
     }
 });
 export default messageRouter;
+//was adding messagin feature, i have to pass the reciever id in the query params
 //# sourceMappingURL=message.route.js.map

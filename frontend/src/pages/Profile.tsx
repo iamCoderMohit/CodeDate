@@ -50,8 +50,8 @@ function Profile() {
       <h1 className="text-3xl text-center font-bold mt-5">
         Tell the world who you are (no one cares btw)
       </h1>
-      <div className="flex-1 flex gap-5 items-stretch p-5">
-        <div className="bg-gray-800 w-1/4 rounded-md p-5">
+      <div className="flex-1 md:flex gap-5 items-stretch p-5">
+        <div className="bg-gray-800 md:w-1/4 rounded-md p-5">
           <div className="flex justify-between items-center mb-10">
             <h1 className="text-lg font-bold">Personal Info</h1>
             <div
@@ -106,11 +106,11 @@ function Profile() {
             ) : null}
           </div>
         </div>
-        <div className="bg-gray-800 w-3/4 rounded-md p-5">
+        <div className="bg-gray-800 mt-5 md:w-3/4 rounded-md p-5">
           <div className="flex justify-between">
             <h1 className="text-lg font-bold">Interests</h1>
             {editInterests ? (
-              <div className="flex gap-5">
+              <div className="flex md:flex-row flex-col gap-2 md:gap-5">
                 <div className="bg-blue-600 rounded-md px-2 py-1">
                   {added} skills added
                 </div>

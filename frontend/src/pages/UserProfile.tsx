@@ -27,8 +27,8 @@ function UserProfile() {
       {loading ? (
         <FeedLoader />
       ) : (
-        <div className="flex">
-          <div className="w-1/3 p-5">
+        <div className="md:flex">
+          <div className="md:w-1/3 p-5">
             <div className="flex items-center gap-10">
             <div className="w-20 h-20 bg-green-500/30 rounded-full flex justify-center items-center text-2xl font-bold text-white self-center cursor-pointer">
             {userInfo.name
@@ -53,7 +53,7 @@ function UserProfile() {
             <FeedButton />
           </div>
           </div>
-          <div className="w-2/3 p-5">
+          <div className="md:w-2/3 p-5">
                 {userInfo.interests.length > 0 ? 
                 <div className="flex justify-around flex-wrap">
                     {userInfo.interests.map((item) => (

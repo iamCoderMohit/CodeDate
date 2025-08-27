@@ -18,7 +18,7 @@ function Feed() {
         <Navbar />
         {loading ? <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
             <FeedLoader />
-        </div> : <div className="flex flex-wrap justify-around">
+        </div> : <div className="flex flex-wrap justify-around gap-5">
             {users.map((user: any) => (
                 <UserCard username={user.username} intrests={user.interests} name={user.name} />
             ))}

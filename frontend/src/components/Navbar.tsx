@@ -3,12 +3,14 @@ import logo from "../assets/logo.png";
 import DateButton from "./DateButton";
 import Overlay from "./Overlay";
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SetInfoButton from "./SetInfoButton";
 import { IoIosLogOut } from "react-icons/io";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useState } from "react";
 import { ImCross } from "react-icons/im";
+import { logout } from "../features/authSlice";
+import { persistor } from "../store/store";
 
 interface navbarInputs {
   setShowSignUp?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -26,6 +28,7 @@ function Navbar({
   const isLoggedIn = useSelector((state: any) => state.auth.isLoggedIn);
   const navigate = useNavigate();
   const [mobile, setMobile] = useState(false);
+  const dispatch = useDispatch()
   return (
     <div className="p-4 flex justify-between px-10 items-center">
       {showOverlay ? (
@@ -50,7 +53,7 @@ function Navbar({
             </Link>
             <button
               className="text-white hidden bg-gray-900 px-10 rounded-md py-2 md:flex items-center justify-center gap-4 cursor-pointer"
-              onClick={() => (localStorage.clear(), navigate("/"))}
+              onClick={() => (localStorage.clear(), persistor.purge(), dispatch(logout()), navigate("/"))}
             >
               <p>Logout</p>
               <IoIosLogOut />
@@ -74,7 +77,7 @@ function Navbar({
                 </Link>
                 <button
                   className="text-white bg-gray-900 px-10 rounded-md py-2 items-center justify-center gap-4 cursor-pointer"
-                  onClick={() => (localStorage.clear(), navigate("/"))}
+                  onClick={() => (localStorage.clear(), persistor.purge(), dispatch(logout()), navigate("/"))}
                 >
                   <p>Logout</p>
                   <IoIosLogOut />
